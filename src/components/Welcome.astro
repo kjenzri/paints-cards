@@ -1,0 +1,79 @@
+---
+import "../styles/global.css";
+import allItems from "../../data.json";
+
+const numberOfCardsByPage = 6;
+const itemsByPage = [];
+for (let i = 0; i < allItems.length; i += numberOfCardsByPage) {
+  const chunk = allItems.slice(i, i + numberOfCardsByPage);
+  itemsByPage.push(chunk);
+}
+---
+
+<main>
+	{
+	  itemsByPage.map((items) => (
+		<section class="a4">
+		  {items.map((item) => (
+			<div class="card">
+			  <div class="header">
+				<div
+				  class="category"
+				  data-category={item.color}
+				></div>
+				<h3 class="name">{item.name}</h3>                  
+			  </div>
+			  <div class="sub-header">
+				<h4 class="artist">{item.artist}</h4>
+			  </div>
+			  <img
+				class="image"                  
+				src={`src/images/paints/${item.image}`}
+			  />
+
+			  <div class="properties_list_container">
+				<ul class="properties_list">
+				  <li class="width">
+					<p>
+					  <span class="property">Largeur : </span>
+					  {item.width}
+					</p>
+				  </li>
+				  <li class="strength">
+					<p>
+					  <span class="property">Hauteur : </span>
+					  {item.height}
+					</p>
+				  </li>
+				  <li class="intelligence">
+					<p>
+					  <span class="property">Achèvement : </span>
+					  { item.completion_date }
+					</p>
+				  </li>
+				  <li class="courage">
+					<p>
+					  <span class="property">Valeur : </span>
+					  { item.commercial_value }
+					</p>
+				  </li>
+				</ul>
+			  </div>
+			  <p class="bio">{item.description}</p>
+			</div>
+		  ))}
+		</section>
+		<section class="a4">
+		  {items.map((item) => (
+			<div class="card-reverse">                
+			  <img
+				class="card-reverse-image"
+				src="src/images/back_side.webp"
+			  />
+			</div>
+		  ))}
+		</section>
+	  ))
+	}
+	
+  </main>
